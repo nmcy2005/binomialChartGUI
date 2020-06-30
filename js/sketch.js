@@ -15,7 +15,7 @@ function draw() {
   let space = Math.round((width - 30) / number);
 
   for (let i = 0; i < number; i++) {
-    let rh = calcHeight(n_toggle.value, p_toggle.value, i) * zoom.value;
+    let rh = calcHeight(n_toggle.value, p_toggle.value, i, zoom.value);
     charts.push(new Chart(15 + space * i, height - rh - 15, space, rh));
     charts[i].show();
     charts.slice(i, 1);
@@ -34,9 +34,9 @@ function Chart(x, y, w, h) {
   };
 }
 
-function calcHeight(n, p, k) {
+function calcHeight(n, p, k, z) {
   let rh = 0;
-  rh = normalBinomial(n, p, k);
+  rh = normalBinomial(n, p, k) * z;
   if (rh !== NaN || rh !== Infinity) {
     rh = Math.ceil(map(rh, 0, 1, 0, height - 30));
   } else {
