@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 2.8vh;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings {
+  margin-top: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+input {
+  width: 15vw;
+  height: 3vh;
+  margin: 5px;
+}
+
+.settings > div {
+  margin: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings > div > div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.output {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.canvas {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.zoom-container input {
+  position: relative;
+  top: 7vh;
+  width: 10vw;
+  height: 2vh;
+  transform: rotate(270deg);
+}
+
+.zoom-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+canvas {
+  width: 90vw;
+  height: 50vh;
+  margin-top: 5vh;
+  position: relative;
+}
+
+.item:hover {
+  color: black;
+}
