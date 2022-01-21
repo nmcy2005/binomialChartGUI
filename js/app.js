@@ -1,13 +1,12 @@
 let n = document.querySelector(".n").querySelector("input");
+let k = document.querySelector(".k").querySelector("input");
+let p = document.querySelector(".p").querySelector("input");
 let n_toggle = document.querySelector(".n_toggle").querySelector("input");
 let k_toggle = document.querySelector(".k_toggle").querySelector("input");
 let p_toggle = document.querySelector(".p_toggle").querySelector("input");
 let k_show = document.querySelectorAll(".k_show");
-let n_show = document.querySelectorAll(".n_show");
-let p_show = document.querySelectorAll(".p_show");
 
-let zoom_show = document.querySelector(".zoom");
-let zoom = document.querySelector(".zoom-container").querySelector("input");
+
 
 let m = document.querySelector(".m_value");
 let standard = document.querySelector(".standard_value");
@@ -15,44 +14,125 @@ let normal = document.querySelector(".normal_show");
 let cumulated = document.querySelector(".cumulated_show");
 let reverse = document.querySelector(".cumulated_reverse_show");
 
+
+let data = [];
+let labels = [];
+let chart;
+
+
+function changeNumberN() {
+  n_toggle.value=n.value;
+  k.setAttribute("max", n.value)
+  k_toggle.setAttribute("max", n.value)
+
+  if (n.value<k.value) {
+    k.value=n.value;
+    k_toggle.value=n.value;
+  }
+
+  calc();
+}
+
+function changeRangeN() {
+  n.value=n_toggle.value;
+  k.setAttribute("max", n.value);
+  k_toggle.setAttribute("max", n.value);
+
+  if (n.value<k.value) {
+    k.value=n.value;
+    k_toggle.value=n.value;
+  }
+
+  calc();
+}
+
+function changeNumberK() {
+  k.setAttribute("max", n.value);
+  k_toggle.setAttribute("max", n.value);
+  k_toggle.value=k.value;
+  calc();
+}
+
+function changeRangeK() {
+  k_toggle.setAttribute("max", n.value);
+  k.setAttribute("max", n.value);
+  k.value=k_toggle.value;
+  calc();
+}
+
+function changeNumberP() {
+  p_toggle.value=p.value;
+  calc();
+}
+
+function changeRangeP() {
+  p.value=p_toggle.value;
+  calc();
+}
+
 function calc() {
-  zoom_show.innerHTML = zoom.value;
-
-  for (let i = 0; i < n_show.length; i++) {
-    n_show[i].innerHTML = n_toggle.value;
+  labels=[];
+  data=[];
+  for (let i=0; i<=n.value; i++) {
+    labels.push(i+'');
   }
 
-  for (let i = 0; i < k_show.length; i++) {
-    k_show[i].innerHTML = k_toggle.value;
+  for (let i=0; i<k_show.length; i++) {
+    k_show[i].innerHTML=k.value;
   }
 
-  for (let i = 0; i < p_show.length; i++) {
-    p_show[i].innerHTML = p_toggle.value;
-  }
-
-  n_toggle.setAttribute("max", n.value);
-  k_toggle.setAttribute("max", n_toggle.value);
-  p_toggle.setAttribute("max", 1);
-
-  if (n.value !== 0 && k_toggle.value !== 0 && p_toggle.value !== 0) {
-    m.innerHTML = parseFloat(calcM(n_toggle.value, p_toggle.value).toFixed(6));
+  if (n.value !== 0 && k.value !== 0 && p.value !== 0) {
+    m.innerHTML = parseFloat(calcM(n.value, p.value).toFixed(6));
     standard.innerHTML = parseFloat(
-      calcStandard(n_toggle.value, p_toggle.value).toFixed(6)
+      calcStandard(n.value, p.value).toFixed(3)
     );
     normal.innerHTML = parseFloat(
-      normalBinomial(n_toggle.value, p_toggle.value, k_toggle.value).toFixed(6)
+      normalBinomial(n.value, p.value, k.value).toFixed(3)
     );
     cumulated.innerHTML = parseFloat(
-      cumulatedBinomial(n_toggle.value, p_toggle.value, k_toggle.value).toFixed(
-        6
+      cumulatedBinomial(n.value, p.value, k.value).toFixed(
+        3
       )
     );
     reverse.innerHTML = parseFloat(
       (
         1 -
-        cumulatedBinomial(n_toggle.value, p_toggle.value, k_toggle.value - 1)
-      ).toFixed(6)
+        cumulatedBinomial(n.value, p.value, k.value - 1)
+      ).toFixed(3)
     );
+    for (let i=0; i<n.value; i++) {
+      data[i]=normalBinomial(n.value, p.value, i);
+    }
+    chart = new Chart("chart", {
+      label: "Binomial Distribution",
+      type: "bar",
+      data: {
+        labels,
+        datasets: [{
+          data,
+          label: "Binomial Distribution",
+          backgroundColor: "#0000ff",
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        title: {
+          display: true,
+          text: 'Binomial Distribution',
+        },
+        legend: {
+          display: false,
+          position: 'left',
+          align: 'start'
+        },
+      }
+    });
   }
 }
 

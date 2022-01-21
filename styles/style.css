@@ -1,7 +1,6 @@
 * {
   padding: 0;
   margin: 0;
-  font-size: 2.8vh;
 }
 
 #main {
@@ -39,6 +38,7 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 300px;
 }
 
 .output {
@@ -50,34 +50,20 @@ input {
   align-items: center;
 }
 
-.canvas {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.zoom-container input {
-  position: relative;
-  top: 7vh;
-  width: 10vw;
-  height: 2vh;
-  transform: rotate(270deg);
-}
-
-.zoom-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-canvas {
-  width: 90vw;
-  height: 50vh;
-  margin-top: 5vh;
-  position: relative;
+.output > div{
+  width: 250px;
 }
 
 .item:hover {
   color: black;
+}
+
+input {
+  width: 200px;
+}
+
+
+#chart {
+  max-width: 70vw;
+  max-height: 70vh;
 }

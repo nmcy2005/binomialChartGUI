@@ -1,90 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Binomial Interface</title>
-    <link rel="stylesheet" href="styles/style.css" />
-  </head>
-  <body>
-    <div id="main">
-      <div class="output">
-        <div class="m">Expected hits: <span class="m_value"></span></div>
-        <div class="standard">
-          Standard deviation: <span class="standard_value"></span>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Binomial Interface</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+
+<body>
+
+  <canvas id="chart"></canvas>
+  <div id="main">
+    <div class="output">
+      <div class="m">Expected hits: <span class="m_value"></span></div>
+      <div class="standard">
+        Standard deviation: <span class="standard_value"></span>
+      </div>
+      <div class="binomial">
+        <div class="normal">
+          B n;p (k = <span class="k_show"></span>) =
+          <span class="normal_show"></span>
         </div>
-        <div class="binomial">
-          <div class="normal">
-            B n;p (k = <span class="k_show"></span>) =
-            <span class="normal_show"></span>
-          </div>
-          <div class="cumulated">
-            B n;p (k <= <span class="k_show"></span>) =
+        <div class="cumulated">
+          B n;p (k <= <span class="k_show"></span>) =
             <span class="cumulated_show"></span>
-          </div>
-          <div class="cumulated_reverse">
-            B n;p (k >= <span class="k_show"></span>) =
-            <span class="cumulated_reverse_show"></span>
-          </div>
         </div>
-      </div>
-      <hr style="color: black; width: 100%;" />
-      <div class="settings">
-        <div>
-          <div class="n">
-            n: <input onchange="calc()" type="number" placeholder="n" min="0" />
-          </div>
-          <div class="n_toggle">
-            n:
-            <input
-              type="range"
-              onchange="calc()"
-              step="1"
-              min="0"
-              max="0"
-            /><span class="n_show">0</span>
-          </div>
-        </div>
-        <div>
-          <div class="k_toggle">
-            k:
-            <input onchange="calc()" type="range" step="1" min="0" max="0" />
-            <span class="k_show">0</span>
-          </div>
-        </div>
-        <div>
-          <div class="p_toggle">
-            p:
-            <input
-              type="range"
-              onchange="calc()"
-              min="0"
-              max="1"
-              step="0.0001"
-            />
-            <span class="p_show">0.5</span>
-          </div>
-        </div>
-      </div>
-      <div class="canvas">
-        <div id="canvas_container"></div>
-        <div class="chart_slider">
-          <div class="zoom-container">
-            <div>Zoom level:<span class="zoom">1</span></div>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              step="1"
-              onchange="calc()"
-              value="1"
-            />
-          </div>
+        <div class="cumulated_reverse">
+          B n;p (k >= <span class="k_show"></span>) =
+          <span class="cumulated_reverse_show"></span>
         </div>
       </div>
     </div>
-    <script src="js/app.js"></script>
-    <script src="p5/p5.js"></script>
-    <script src="js/sketch.js"></script>
-  </body>
+    <hr style="color: black; width: 100%;" />
+    <div class="settings">
+      <div>
+        <div class="n">
+          n: <input onchange="changeNumberN()" type="number" step="1" value="100" min="0" max="100"/>
+        </div>
+        <div class="n_toggle">
+          n:
+          <input type="range" oninput="changeRangeN()" step="1" value="100" min="0" max="100"/>
+        </div>
+      </div>
+      <div>
+        <div class="k">
+          k: <input onchange="changeNumberK()" type="number" step="1" value="100" min="0" max="100"/>
+        </div>
+        <div class="k_toggle">
+          k:
+          <input oninput="changeRangeK()" type="range" step="1" value="100" min="0" max="100"/>
+        </div>
+      </div>
+      <div>
+        <div class="p">
+          p: <input onchange="changeNumberP()" type="number" value="0.5" step="0.01" placeholder="0.5" min="0"/>
+        </div>
+        <div class="p_toggle">
+          p:
+          <input type="range" oninput="changeRangeP()" value="0.5" min="0" step="0.001" max="1"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="js/app.js"></script>
+  <script src="p5/p5.js"></script>
+  <!-- <script src="js/sketch.js"></script> -->
+  <script>
+    calc();
+  </script>
+</body>
+
 </html>
