@@ -19,12 +19,6 @@
   align-items: center;
 }
 
-input {
-  width: 15vw;
-  height: 3vh;
-  margin: 5px;
-}
-
 .settings > div {
   margin: 10px;
 
