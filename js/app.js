@@ -5,6 +5,7 @@ let n_toggle = document.querySelector(".n_toggle").querySelector("input");
 let k_toggle = document.querySelector(".k_toggle").querySelector("input");
 let p_toggle = document.querySelector(".p_toggle").querySelector("input");
 let k_show = document.querySelectorAll(".k_show");
+let k2 = document.querySelector(".between").querySelector("input");
 
 
 
@@ -13,6 +14,7 @@ let standard = document.querySelector(".standard_value");
 let normal = document.querySelector(".normal_show");
 let cumulated = document.querySelector(".cumulated_show");
 let reverse = document.querySelector(".cumulated_reverse_show");
+let between = document.querySelector(".between_show");
 
 
 let data = [];
@@ -21,26 +23,26 @@ let chart;
 
 
 function changeNumberN() {
-  n_toggle.value=n.value;
+  n_toggle.value = n.value;
   k.setAttribute("max", n.value)
   k_toggle.setAttribute("max", n.value)
 
-  if (n.value<k.value) {
-    k.value=n.value;
-    k_toggle.value=n.value;
+  if (n.value < k.value) {
+    k.value = n.value;
+    k_toggle.value = n.value;
   }
 
   calc();
 }
 
 function changeRangeN() {
-  n.value=n_toggle.value;
+  n.value = n_toggle.value;
   k.setAttribute("max", n.value);
   k_toggle.setAttribute("max", n.value);
 
-  if (n.value<k.value) {
-    k.value=n.value;
-    k_toggle.value=n.value;
+  if (n.value < k.value) {
+    k.value = n.value;
+    k_toggle.value = n.value;
   }
 
   calc();
@@ -49,36 +51,38 @@ function changeRangeN() {
 function changeNumberK() {
   k.setAttribute("max", n.value);
   k_toggle.setAttribute("max", n.value);
-  k_toggle.value=k.value;
+  k_toggle.value = k.value;
   calc();
 }
 
 function changeRangeK() {
   k_toggle.setAttribute("max", n.value);
   k.setAttribute("max", n.value);
-  k.value=k_toggle.value;
+  k.value = k_toggle.value;
   calc();
 }
 
 function changeNumberP() {
-  p_toggle.value=p.value;
+  p_toggle.value = p.value;
   calc();
 }
 
 function changeRangeP() {
-  p.value=p_toggle.value;
+  p.value = p_toggle.value;
   calc();
 }
 
 function calc() {
-  labels=[];
-  data=[];
-  for (let i=0; i<=n.value; i++) {
-    labels.push(i+'');
+  k2.setAttribute("max", k.value);
+
+  labels = [];
+  data = [];
+  for (let i = 0; i <= n.value; i++) {
+    labels.push(i + '');
   }
 
-  for (let i=0; i<k_show.length; i++) {
-    k_show[i].innerHTML=k.value;
+  for (let i = 0; i < k_show.length; i++) {
+    k_show[i].innerHTML = k.value;
   }
 
   if (n.value !== 0 && k.value !== 0 && p.value !== 0) {
@@ -100,8 +104,11 @@ function calc() {
         cumulatedBinomial(n.value, p.value, k.value - 1)
       ).toFixed(3)
     );
-    for (let i=0; i<n.value; i++) {
-      data[i]=normalBinomial(n.value, p.value, i);
+    between.innerHTML = parseFloat((cumulatedBinomial(n.value, p.value, k.value) - cumulatedBinomial(n.value, p.value, k2.value)).toFixed(3))
+
+
+    for (let i = 0; i < n.value; i++) {
+      data[i] = normalBinomial(n.value, p.value, i);
     }
     chart = new Chart("chart", {
       label: "Binomial Distribution",

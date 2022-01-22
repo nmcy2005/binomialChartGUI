@@ -62,6 +62,9 @@ input {
   width: 200px;
 }
 
+.between > input {
+  width: 40px;
+}
 
 #chart {
   max-width: 70vw;
